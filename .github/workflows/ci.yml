@@ -82,6 +82,16 @@ jobs:
         run: uv run pytest -q
 
       # A skip here means the build step above failed to produce a manifest
-      # and the suite passed without its production coverage.
+      # and the suite went green without its production coverage.
+      #
+      # Written out rather than piped into grep: `grep -qv skipped` succeeds
+      # whenever *any* line lacks the word, which a pytest run always has, so
+      # it would pass no matter what happened.
       - name: The production-asset tests actually ran
-        run: uv run pytest tests/test_production_assets.py -q --no-header -rs | tee /dev/stderr | grep -qv "skipped"
+        run: |
+          output=$(uv run pytest tests/test_production_assets.py -q --no-header -rs)
+          echo "$output"
+          if echo "$output" | grep -q "skipped"; then
+            echo "::error::The production-asset tests skipped — no build manifest, so the production path was never exercised."
+            exit 1
+          fi
