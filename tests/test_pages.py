@@ -66,7 +66,16 @@ class TestTheFirstVisit:
         assert "http://localhost:5173/resources/js/app.tsx" in html
 
     def test_the_title_comes_from_view_data(self, client):
-        assert "<title>Starter</title>" in client.get("/").text
+        """Read from config rather than written out.
+
+        `sillo-start` renames the project on creation, so a hardcoded name
+        here would hand every generated project a red suite on its first
+        `make test`. Comparing against config also states the actual contract:
+        the shell's title is wired to APP_NAME.
+        """
+        from app.config import config
+
+        assert f"<title>{config.app_name}</title>" in client.get("/").text
 
 
 class TestAnInertiaVisit:
@@ -127,7 +136,10 @@ class TestSharedProps:
         assert props["auth"] == {"user": None}
 
     def test_the_app_name_is_shared(self, inertia_get):
-        assert inertia_get("/").json()["props"]["app_name"] == "Starter"
+        """From config, so this survives the project being renamed."""
+        from app.config import config
+
+        assert inertia_get("/").json()["props"]["app_name"] == config.app_name
 
     def test_errors_and_flash_are_always_present(self, inertia_get):
         """Never absent, so no component needs to guard before reading them."""
