@@ -66,7 +66,7 @@ class TestTheFirstVisit:
         assert "http://localhost:5173/resources/js/app.tsx" in html
 
     def test_the_title_comes_from_view_data(self, client):
-        assert "<title>Sillo Inertia Starter</title>" in client.get("/").text
+        assert "<title>Starter</title>" in client.get("/").text
 
 
 class TestAnInertiaVisit:
@@ -127,7 +127,7 @@ class TestSharedProps:
         assert props["auth"] == {"user": None}
 
     def test_the_app_name_is_shared(self, inertia_get):
-        assert inertia_get("/").json()["props"]["app_name"] == "Sillo Inertia Starter"
+        assert inertia_get("/").json()["props"]["app_name"] == "Starter"
 
     def test_errors_and_flash_are_always_present(self, inertia_get):
         """Never absent, so no component needs to guard before reading them."""

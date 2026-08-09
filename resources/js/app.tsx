@@ -5,13 +5,19 @@ import Layout from './Layout'
 import type { PageModule } from './types'
 import '../css/app.css'
 
+const appName = document.title || 'Sillo'
+
 createInertiaApp({
   // Must match `root_id` on the adapter in app/inertia.py and the div in
   // resources/views/app.html. All three, or the client cannot find its mount
   // point or its page object.
   id: 'app',
 
-  title: (title) => (title ? `${title} · Sillo Inertia` : 'Sillo Inertia'),
+  // Taken from the document rather than written here. The shell renders
+  // `<title>{{ app_name }}</title>` before any JavaScript runs, so this
+  // follows APP_NAME on its own — a hardcoded name would be a second place to
+  // change, and one that `sillo-start` does not know how to rename.
+  title: (title) => (title ? `${title} · ${appName}` : appName),
 
   // Maps the component name a handler returns — `render("Auth/Login")` — onto
   // a module under ./Pages. The glob is eager so every page is in the main

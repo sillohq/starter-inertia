@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 class AppConfig(Config):
-    """Typed settings for this project."""
+    """Typed settings for Starter."""
 
     # -- application ---------------------------------------------------
-    app_name: str = "Sillo Inertia Starter"
+    app_name: str = "Starter"
     app_env: Literal["local", "testing", "staging", "production"] = "local"
     debug: bool = True
     host: str = "127.0.0.1"
@@ -32,7 +32,7 @@ class AppConfig(Config):
     secret_key: str = "change-me"
 
     # -- database ------------------------------------------------------
-    database_url: str = "sqlite://storage/app.db"
+    database_url: str = "sqlite://storage/starter.db"
     db_pool_size: int = 5
     db_echo: bool = False
     # Off, because migrations own the schema. Generating it on startup would
