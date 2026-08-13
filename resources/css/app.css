@@ -1,248 +1,47 @@
 /*
- * Plain CSS, on purpose.
+ * Tailwind, with the palette stated once.
  *
- * A starter that arrives with Tailwind, a design system and a component
- * library has made three decisions for you that are cheap to make yourself
- * and awkward to undo. This is enough to look deliberate and small enough to
- * delete in one go.
+ * v4 needs no tailwind.config.js and no PostCSS step — the Vite plugin in
+ * vite.config.ts does both, and content scanning is automatic. What is left
+ * here is the part worth writing down: the two brand colours, and the three
+ * global rules that are not a utility on an element.
  */
 
-:root {
-  --ink: #18181b;
-  --ink-soft: #52525b;
-  --line: #e4e4e7;
-  --paper: #ffffff;
-  --ground: #fafafa;
-  --brand: #e11d48;
-  --ok: #047857;
-  --bad: #b91c1c;
-  --radius: 10px;
+@import 'tailwindcss';
+
+/*
+ * `dark:` follows the OS by default in v4. Add
+ *
+ *     @custom-variant dark (&:where(.dark, .dark *));
+ *
+ * if you would rather drive it from a class you toggle yourself.
+ */
+
+@theme {
+  /*
+   * The neutral scale is Tailwind's own zinc, so it is not restated here.
+   * Only the colours that are this application's rather than the framework's
+   * need naming: everything else is `zinc-*` at the call site.
+   */
+  --color-brand: var(--color-rose-600);
+  --color-brand-strong: var(--color-rose-700);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink: #f4f4f5;
-    --ink-soft: #a1a1aa;
-    --line: #27272a;
-    --paper: #18181b;
-    --ground: #09090b;
+@layer base {
+  /*
+   * Set on body rather than a wrapper so overscroll shows the right colour
+   * instead of the browser's white. The shell's own height is handled with
+   * min-h-screen in Layout.tsx.
+   */
+  body {
+    @apply bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
   }
-}
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: var(--ground);
-  color: var(--ink);
-  font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-
-a {
-  color: inherit;
-}
-
-code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.9em;
-  background: var(--ground);
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  padding: 0.1em 0.35em;
-}
-
-/* -- shell ------------------------------------------------------------- */
-
-.app {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.app__bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem clamp(1rem, 4vw, 3rem);
-  border-bottom: 1px solid var(--line);
-  background: var(--paper);
-}
-
-.app__brand {
-  font-weight: 650;
-  text-decoration: none;
-}
-
-.app__nav {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.app__who {
-  color: var(--ink-soft);
-  font-size: 0.9rem;
-}
-
-.app__main {
-  flex: 1;
-  width: 100%;
-  max-width: 56rem;
-  margin: 0 auto;
-  padding: clamp(1.5rem, 5vw, 3.5rem) clamp(1rem, 4vw, 3rem);
-}
-
-.app__foot {
-  padding: 1.5rem clamp(1rem, 4vw, 3rem);
-  border-top: 1px solid var(--line);
-  color: var(--ink-soft);
-  font-size: 0.875rem;
-}
-
-/* -- pieces ------------------------------------------------------------ */
-
-.hero h1 {
-  font-size: clamp(1.9rem, 5vw, 2.75rem);
-  line-height: 1.15;
-  margin: 0 0 0.75rem;
-  letter-spacing: -0.02em;
-}
-
-.hero__note {
-  color: var(--ink-soft);
-  max-width: 46ch;
-}
-
-.hero__actions {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-}
-
-.panel,
-.card {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: clamp(1.25rem, 4vw, 2rem);
-}
-
-.card {
-  max-width: 26rem;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.card h1 {
-  margin: 0;
-  font-size: 1.35rem;
-}
-
-.card__alt {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--ink-soft);
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  font-size: 0.9rem;
-}
-
-.field small {
-  color: var(--ink-soft);
-  font-weight: 400;
-}
-
-.field input {
-  font: inherit;
-  padding: 0.6rem 0.7rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--ground);
-  color: inherit;
-}
-
-.field input:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 1px;
-}
-
-.field__error {
-  color: var(--bad);
-  font-style: normal;
-  font-size: 0.85rem;
-}
-
-.field__hint {
-  color: var(--ink-soft);
-}
-
-.facts {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 0.4rem 1.5rem;
-  margin: 1.5rem 0 0;
-}
-
-.facts dt {
-  color: var(--ink-soft);
-  font-size: 0.9rem;
-}
-
-.facts dd {
-  margin: 0;
-}
-
-.btn {
-  font: inherit;
-  cursor: pointer;
-  display: inline-block;
-  padding: 0.55rem 1rem;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  text-decoration: none;
-  text-align: center;
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: progress;
-}
-
-.btn--solid {
-  background: var(--brand);
-  color: #fff;
-}
-
-.btn--ghost {
-  border-color: var(--line);
-  background: transparent;
-  color: inherit;
-}
-
-.flash {
-  margin: 0;
-  padding: 0.75rem clamp(1rem, 4vw, 3rem);
-  font-size: 0.9rem;
-}
-
-.flash--ok {
-  background: color-mix(in srgb, var(--ok) 12%, transparent);
-  color: var(--ok);
-}
-
-.flash--bad {
-  background: color-mix(in srgb, var(--bad) 12%, transparent);
-  color: var(--bad);
+  /*
+   * Links inherit their colour by default — the ones that should look like
+   * links say so. Without this every <a> in prose turns blue.
+   */
+  a {
+    @apply text-inherit;
+  }
 }

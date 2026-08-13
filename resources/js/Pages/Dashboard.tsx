@@ -14,10 +14,11 @@ export default function Dashboard({ stats }: Props) {
     <>
       <Head title="Dashboard" />
 
-      <section className="panel">
-        <h1>Dashboard</h1>
-        <p>
-          Signed in as <strong>{stats.signed_in_as}</strong>.
+      <section className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+        <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+
+        <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+          Signed in as <strong className="font-medium text-zinc-900 dark:text-zinc-100">{stats.signed_in_as}</strong>.
         </p>
 
         {/*
@@ -27,14 +28,16 @@ export default function Dashboard({ stats }: Props) {
           of the model, not a dump of it, so the password hash cannot reach
           the browser by someone adding a column later.
         */}
-        <dl className="facts">
-          <dt>Username</dt>
+        <dl className="mt-6 grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-sm">
+          <dt className="text-zinc-500 dark:text-zinc-400">Username</dt>
           <dd>{auth.user?.username}</dd>
-          <dt>Email</dt>
+          <dt className="text-zinc-500 dark:text-zinc-400">Email</dt>
           <dd>{auth.user?.email}</dd>
-          <dt>Name</dt>
-          <dd>{auth.user?.full_name ?? <em>not set</em>}</dd>
-          <dt>Staff</dt>
+          <dt className="text-zinc-500 dark:text-zinc-400">Name</dt>
+          <dd>
+            {auth.user?.full_name ?? <em className="text-zinc-500 dark:text-zinc-400">not set</em>}
+          </dd>
+          <dt className="text-zinc-500 dark:text-zinc-400">Staff</dt>
           <dd>{auth.user?.is_staff ? 'yes' : 'no'}</dd>
         </dl>
       </section>

@@ -1,8 +1,12 @@
+import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [react()],
+  // Tailwind v4 is a Vite plugin rather than a PostCSS step, so there is no
+  // postcss.config.js and no tailwind.config.js. Content scanning is
+  // automatic; the design tokens live in resources/css/app.css under @theme.
+  plugins: [tailwindcss(), react()],
 
   build: {
     // Where the Python side looks. app/inertia.py reads

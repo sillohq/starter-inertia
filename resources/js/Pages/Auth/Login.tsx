@@ -1,5 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react'
 import type { FormEvent } from 'react'
+import { button, card, field } from '../../ui'
 
 export default function Login() {
   /*
@@ -26,38 +27,44 @@ export default function Login() {
     <>
       <Head title="Sign in" />
 
-      <form className="card" onSubmit={submit} noValidate>
-        <h1>Sign in</h1>
+      <form className={card} onSubmit={submit} noValidate>
+        <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
 
-        <label className="field">
-          <span>Email</span>
+        <label className={field.wrap}>
+          <span className={field.label}>Email</span>
           <input
             type="email"
+            className={field.input}
             value={data.email}
             onChange={(event) => setData('email', event.target.value)}
             autoComplete="username"
             autoFocus
           />
-          {errors.email && <em className="field__error">{errors.email}</em>}
+          {errors.email && <em className={field.error}>{errors.email}</em>}
         </label>
 
-        <label className="field">
-          <span>Password</span>
+        <label className={field.wrap}>
+          <span className={field.label}>Password</span>
           <input
             type="password"
+            className={field.input}
             value={data.password}
             onChange={(event) => setData('password', event.target.value)}
             autoComplete="current-password"
           />
-          {errors.password && <em className="field__error">{errors.password}</em>}
+          {errors.password && <em className={field.error}>{errors.password}</em>}
         </label>
 
-        <button type="submit" className="btn btn--solid" disabled={processing}>
+        <button type="submit" className={button.solid} disabled={processing}>
           {processing ? 'Signing in…' : 'Sign in'}
         </button>
 
-        <p className="card__alt">
-          No account yet? <Link href="/register">Create one</Link>.
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          No account yet?{' '}
+          <Link href="/register" className="underline underline-offset-4 hover:text-brand">
+            Create one
+          </Link>
+          .
         </p>
       </form>
     </>
