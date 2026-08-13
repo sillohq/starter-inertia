@@ -42,14 +42,14 @@ async def show_login(request: Request, response: Response):
     """
     if request.user.is_authenticated:
         return redirect("/dashboard")
-    return await render("Auth/Login")
+    return await render("auth/Login")
 
 
 async def show_register(request: Request, response: Response):
     """The sign-up form."""
     if request.user.is_authenticated:
         return redirect("/dashboard")
-    return await render("Auth/Register")
+    return await render("auth/Register")
 
 
 # -- actions ---------------------------------------------------------------

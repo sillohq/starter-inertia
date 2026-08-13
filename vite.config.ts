@@ -1,11 +1,21 @@
+import { fileURLToPath } from 'node:url'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      // `@/js/ui`, `@/views/Layout`. Kept in step with the `paths` entry in
+      // tsconfig.json: Vite resolves at build time and tsc only type-checks,
+      // so neither one knows about the other and both have to be told.
+      '@': fileURLToPath(new URL('.', import.meta.url)),
+    },
+  },
+
   // Tailwind v4 is a Vite plugin rather than a PostCSS step, so there is no
   // postcss.config.js and no tailwind.config.js. Content scanning is
-  // automatic; the design tokens live in resources/css/app.css under @theme.
+  // automatic; the design tokens live in js/app.css under @theme.
   plugins: [tailwindcss(), react()],
 
   build: {
@@ -25,7 +35,7 @@ export default defineConfig({
       // the dev server serves. It must match ENTRY in app/inertia.py; if the
       // two drift, development still works and production silently ships a
       // page with no JavaScript.
-      input: 'resources/js/app.tsx',
+      input: 'js/main.tsx',
     },
   },
 

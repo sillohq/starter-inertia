@@ -1,16 +1,16 @@
 import { createInertiaApp } from '@inertiajs/react'
 import type { ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
-import Layout from './Layout'
+import Layout from '@/views/Layout'
 import type { PageModule } from './types'
-import '../css/app.css'
+import './app.css'
 
 const appName = document.title || 'Sillo'
 
 createInertiaApp({
   // Must match `root_id` on the adapter in app/inertia.py and the div in
-  // resources/views/app.html. All three, or the client cannot find its mount
-  // point or its page object.
+  // root.html. All three, or the client cannot find its mount point or its
+  // page object.
   id: 'app',
 
   // Taken from the document rather than written here. The shell renders
@@ -19,20 +19,27 @@ createInertiaApp({
   // change, and one that `sillo-start` does not know how to rename.
   title: (title) => (title ? `${title} · ${appName}` : appName),
 
-  // Maps the component name a handler returns — `render("Auth/Login")` — onto
-  // a module under ./Pages. The glob is eager so every page is in the main
-  // bundle; switch to `{ eager: false }` and `await pages[path]()` once there
-  // are enough pages for code splitting to be worth the extra round trip.
+  // Maps the component name a handler returns — `render("auth/Login")` — onto
+  // a module under ../views/pages. The glob is eager so every page is in the
+  // main bundle; switch to `{ eager: false }` and `await pages[path]()` once
+  // there are enough pages for code splitting to be worth the extra round
+  // trip.
+  //
+  // The path is relative and literal on purpose: Vite resolves globs at build
+  // time by reading this string, so it cannot go through the `@/` alias and
+  // cannot be built from a variable.
   resolve: (name) => {
-    const pages = import.meta.glob<PageModule>('./Pages/**/*.tsx', { eager: true })
-    const page = pages[`./Pages/${name}.tsx`]
+    const pages = import.meta.glob<PageModule>('../views/pages/**/*.tsx', {
+      eager: true,
+    })
+    const page = pages[`../views/pages/${name}.tsx`]
 
     if (!page) {
       // Without this the failure is `Cannot read properties of undefined
       // (reading 'default')` from inside Inertia, which says nothing about
       // which component was missing.
       throw new Error(
-        `No page component for "${name}". Expected resources/js/Pages/${name}.tsx.`,
+        `No page component for "${name}". Expected views/pages/${name}.tsx.`,
       )
     }
 

@@ -1,6 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react'
 import type { FormEvent } from 'react'
-import { button, card, field } from '../../ui'
+import { button, card, field } from '@/js/ui'
 
 export default function Login() {
   /*

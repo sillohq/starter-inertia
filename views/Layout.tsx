@@ -1,7 +1,7 @@
 import { Link, router, usePage } from '@inertiajs/react'
 import type { ReactNode } from 'react'
-import type { SharedProps } from './types'
-import { button } from './ui'
+import type { SharedProps } from '@/js/types'
+import { button } from '@/js/ui'
 
 /**
  * The shell every page renders inside.

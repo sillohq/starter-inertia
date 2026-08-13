@@ -61,10 +61,15 @@ routes/
   web.py          pages
   auth.py         sign up / sign in / sign out
   api.py          the small JSON surface that is not Inertia
-resources/
-  views/app.html  the HTML shell, with the Inertia placeholders
-  js/app.tsx      createInertiaApp, and the page resolver
-  js/Pages/       one component per page name a handler can return
+root.html         the HTML shell, with the Inertia placeholders
+js/
+  main.tsx        createInertiaApp, and the page resolver
+  app.css         Tailwind entry and the design tokens
+  ui.ts           class strings shared across pages
+  types.ts        the shape of the shared props
+views/
+  Layout.tsx      the shell every page renders inside
+  pages/          one component per page name a handler can return
 database/
   models/user.py  the single user model
 ```
@@ -123,7 +128,7 @@ useless without the session cookie, which stays `httponly`.
 | Needs | `npm run dev` | `npm run build` |
 | Filenames | source paths | content-hashed |
 
-One string has to agree in three places: `resources/js/app.tsx` is the input in
+One string has to agree in three places: `js/main.tsx` is the input in
 `vite.config.ts`, the `ENTRY` constant in `app/inertia.py`, and the key Vite
 writes into the manifest. When they drift, development still works and
 production renders a page with no JavaScript at all — which is why
@@ -148,9 +153,9 @@ directly; the application's own static mount then never sees traffic.
 1. Write the handler in `routes/web.py` and return `render("Reports/Index", {...})`.
 2. Register it in `app/bootstrap.py` with `exclude_from_schema=True` — pages
    are not an API and should not be documented as one.
-3. Create `resources/js/Pages/Reports/Index.tsx` with a default export.
+3. Create `views/pages/Reports/Index.tsx` with a default export.
 
-The resolver in `app.tsx` maps the name to the file. A name with no matching
+The resolver in `js/main.tsx` maps the name to the file. A name with no matching
 file raises an error that says which file it expected, rather than the
 `Cannot read properties of undefined` you would otherwise get.
 

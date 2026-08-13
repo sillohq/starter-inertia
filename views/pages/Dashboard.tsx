@@ -1,5 +1,5 @@
 import { Head, usePage } from '@inertiajs/react'
-import type { SharedProps } from '../types'
+import type { SharedProps } from '@/js/types'
 
 interface Props {
   stats: {

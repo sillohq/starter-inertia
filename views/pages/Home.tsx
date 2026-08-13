@@ -1,6 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react'
-import { button } from '../ui'
-import type { SharedProps } from '../types'
+import { button } from '@/js/ui'
+import type { SharedProps } from '@/js/types'
 
 interface Props {
   message: string

@@ -31,7 +31,7 @@ MANIFEST = BUILD_DIR / ".vite" / "manifest.json"
 #: dev server serves from. It has to match ``build.rollupOptions.input`` in
 #: vite.config.ts; if the two drift, development still works and production
 #: renders a page with no JavaScript.
-ENTRY = "resources/js/app.tsx"
+ENTRY = "js/main.tsx"
 
 
 def build_inertia() -> Inertia:
@@ -40,14 +40,14 @@ def build_inertia() -> Inertia:
         # Attached in bootstrap rather than here. Passing `app=` would install
         # the middleware at construction time, which puts it at the wrong place
         # in a chain that is ordered deliberately.
-        root_view=BASE_DIR / "resources" / "views" / "app.html",
+        root_view=BASE_DIR / "root.html",
         # An absolute base_dir. Left unset the adapter derives one by walking
         # three parents up from the root view, which is correct only when the
         # process was started from the project root.
         base_dir=BASE_DIR,
         version=config.asset_version,
         root_id="app",
-        # Substituted into resources/views/app.html as `{{ app_name }}`.
+        # Substituted into root.html as `{{ app_name }}`.
         # View data and props are different channels: props reach React, view
         # data only ever reaches the HTML shell. The document title belongs in
         # the shell, so that a page has a title before any JavaScript runs.
