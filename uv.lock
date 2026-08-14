@@ -485,7 +485,7 @@ wheels = [
 
 [[package]]
 name = "sillo-framework"
-version = "0.0.2a3"
+version = "0.1.0b1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -496,9 +496,9 @@ dependencies = [
     { name = "python-multipart" },
     { name = "uvicorn" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5b/78/24abda03873865c9fc5ac12df53329378bf340f2ab9bb58ed12644d82981/sillo_framework-0.0.2a3.tar.gz", hash = "sha256:103cc0e20dc8c0b5df9583eb151a5fff84aa1d8eeed11179003bf9e7a76c79b1", size = 3254242, upload-time = "2026-08-10T20:50:07.444Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/23/57/a9596e5b18fa9ff110fba173f964af1cf60edc0855c96bf8bfcef0e65668/sillo_framework-0.1.0b1.tar.gz", hash = "sha256:10cb691d92ee59a5df962d814162f84a82ccf6e959f51fd1047548a95dfa7983", size = 3295768, upload-time = "2026-08-13T01:38:56.009Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fc/cf/f49e4afeeec5bca1eed09041d8b65012fef0585c584aa67eb1e25d4d77f7/sillo_framework-0.0.2a3-py3-none-any.whl", hash = "sha256:35d8fd82d7bf735b01e722cf6583793e1e0e5b9a185e43a60bffe0d84cb1c99e", size = 899117, upload-time = "2026-08-10T20:50:05.783Z" },
+    { url = "https://files.pythonhosted.org/packages/bf/78/435589eba9963a379df3853c794dd811b32a43a097e539741792bcf84cd5/sillo_framework-0.1.0b1-py3-none-any.whl", hash = "sha256:f76a0959e16737cfa714c9b7b5ce04aaf431bcd54606330d4da5bf5d6f324e2a", size = 905951, upload-time = "2026-08-13T01:38:54.398Z" },
 ]
 
 [package.optional-dependencies]
@@ -551,7 +551,7 @@ requires-dist = [
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3.5" },
     { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = ">=0.25.3" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.6.0" },
-    { name = "sillo-framework", extras = ["cache", "hashing-bcrypt", "record"], specifier = ">=0.0.2a2" },
+    { name = "sillo-framework", extras = ["cache", "hashing-bcrypt", "record"], specifier = ">=0.1.0b1" },
     { name = "sillo-inertia", specifier = ">=0.0.1a4" },
 ]
 provides-extras = ["dev"]

@@ -9,7 +9,7 @@ description = "Sillo + Inertia.js + React starter"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "sillo-framework[cache,hashing-bcrypt,record]>=0.0.2a2",
+    "sillo-framework[cache,hashing-bcrypt,record]>=0.1.0b1",
     "sillo-inertia>=0.0.1a4",
     "email-validator>=2.0.0",
     # The SQLite driver. Swap for asyncpg or asyncmy when you change DATABASE_URL.
@@ -17,9 +17,9 @@ dependencies = [
 ]
 
 # No [templating] extra, and no Jinja anywhere. The only HTML this project
-# serves is resources/views/app.html, which the Inertia adapter reads and
-# substitutes into directly — every other page is React. Installing a template
-# engine to render one file would be a dependency you never call.
+# serves is root.html, which the Inertia adapter reads and substitutes into
+# directly — every other page is React. Installing a template engine to render
+# one file would be a dependency you never call.
 
 [project.optional-dependencies]
 dev = [
